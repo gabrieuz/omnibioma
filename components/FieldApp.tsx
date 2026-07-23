@@ -12,6 +12,7 @@ import { findRecurrence } from "@/lib/recurrence";
 import { attentionFor, categoryLabel, confidenceLabel, guidanceFor, signLabel } from "@/lib/rules";
 import { scenarios, loadScenarioSnapshot, type Scenario } from "@/lib/scenarios";
 import { createSeedHistory } from "@/lib/seed";
+import { ProximityView } from "@/components/ProximityView";
 
 type Tab = "home" | "register" | "history";
 type Flow = "register" | "analyzing" | "understand" | "act";
@@ -268,16 +269,6 @@ function ActView({ item, recurrence, message, saved, onBack, onSave, onHistory }
     <div className="notice"><AlertTriangle size={19} /><span>Classificação preliminar. Se houver risco imediato para pessoas, afaste-se e procure o serviço local de emergência.</span></div>
     <div className="actions"><button className="button button-ghost" onClick={onBack}><ArrowLeft size={18} />Revisar</button>{saved ? <button className="button button-secondary" onClick={onHistory}><History size={18} />Ver histórico</button> : <button className="button button-primary" onClick={onSave}><Check size={18} />Salvar ocorrência</button>}</div>
   </section>;
-}
-
-function ProximityView({ items }: { items: Occurrence[] }) {
-  const points = items.filter((item) => item.coordinates && item.analysis && !["uncertain", "out_of_scope"].includes(item.analysis.category));
-  if (!points.length) return null;
-  const lats = points.map((item) => item.coordinates!.latitude); const lons = points.map((item) => item.coordinates!.longitude);
-  const minLat = Math.min(...lats); const maxLat = Math.max(...lats); const minLon = Math.min(...lons); const maxLon = Math.max(...lons);
-  const xy = (item: Occurrence) => ({ x: 24 + ((item.coordinates!.longitude - minLon) / (maxLon - minLon || 1)) * 272, y: 24 + ((maxLat - item.coordinates!.latitude) / (maxLat - minLat || 1)) * 152 });
-  const colors: Record<string, string> = { fire_smoke: "#c9522b", water_contamination: "#2676a8", waste_disposal: "#597b43" };
-  return <section className="map-card" aria-labelledby="proximity-title"><h2 id="proximity-title">Visão de proximidade</h2><p className="map-caption">Não é mapa de navegação · coordenadas simuladas ou salvas localmente</p><svg viewBox="0 0 320 200" role="img" aria-label={`${points.length} registros distribuídos por proximidade`}><path d="M20 55 C85 15 126 80 190 48 S270 34 305 72 M30 156 C92 112 140 178 216 136 S276 122 305 154" fill="none" stroke="#c8d9ce" strokeWidth="12" strokeLinecap="round" />{points.map((item) => { const point = xy(item); return <circle key={item.id} cx={point.x} cy={point.y} r="7" fill={colors[item.analysis!.category] ?? "#6b746f"} stroke="white" strokeWidth="3"><title>{categoryLabel[item.analysis!.category]} — {new Date(item.observedAt).toLocaleDateString("pt-BR")}</title></circle>; })}</svg><div className="chips"><span className="chip">● fogo/fumaça</span><span className="chip">● água</span><span className="chip">● resíduos</span></div></section>;
 }
 
 function HistoryView({ items, onExport, onProgress, onRetry }: { items: Occurrence[]; onExport: () => void; onProgress: (item: Occurrence, progress: ProgressState) => void; onRetry: (item: Occurrence) => void }) {

@@ -113,8 +113,58 @@ textarea { min-height: 116px; resize: vertical; line-height: 1.45; }
 .history-card select { min-width: 145px; }
 .status-dot { display: inline-block; width: 8px; height: 8px; margin-right: 7px; border-radius: 50%; background: #c9992c; }
 .map-card { margin: 20px 0; }
-.map-card svg { display: block; width: 100%; height: auto; margin-top: 12px; border-radius: 14px; background: #edf4ee; }
-.map-caption { color: var(--muted); font-size: .75rem; }
+.map-caption { margin-bottom: 0; color: var(--muted); font-size: .78rem; }
+.proximity-card { overflow: hidden; }
+.proximity-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.proximity-head h2 { margin-bottom: 5px; }
+.proximity-head > svg { flex: none; margin-top: 6px; color: var(--forest-2); }
+.pattern-notice { display: flex; align-items: center; gap: 12px; margin: 18px 0 14px; padding: 13px 15px; border: 1px solid #e3be65; border-radius: 15px; background: #fff6db; }
+.pattern-count { display: grid; width: 37px; height: 37px; flex: none; place-items: center; border-radius: 50%; color: white; background: var(--ember); font-weight: 850; }
+.pattern-notice strong, .pattern-notice small { display: block; }
+.pattern-notice strong { font-size: .89rem; }
+.pattern-notice small { margin-top: 2px; color: #6c5a35; font-size: .73rem; line-height: 1.35; }
+.pattern-quiet { margin: 16px 0 13px; color: var(--muted); font-size: .8rem; }
+.proximity-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin: 13px 0; }
+.proximity-filters button { display: grid; min-width: 0; min-height: 67px; grid-template-columns: auto 1fr auto; align-items: center; gap: 6px; padding: 9px; border: 1px solid var(--line); border-radius: 13px; color: var(--forest); background: #faf9f3; font-size: .72rem; font-weight: 750; text-align: left; cursor: pointer; }
+.proximity-filters button:not(:first-child) svg { color: var(--marker-color); }
+.proximity-filters button strong { display: grid; min-width: 23px; height: 23px; place-items: center; border-radius: 99px; background: #e5e8e1; font-size: .7rem; }
+.proximity-filters button.active { border-color: var(--forest); background: var(--mint); box-shadow: inset 0 0 0 1px var(--forest); }
+.proximity-map-wrap { margin-top: 10px; }
+.proximity-map { display: block; width: 100%; height: auto; overflow: hidden; border: 1px solid #cfd5ce; border-radius: 18px; background: #eceee9; }
+.map-background { fill: #eceee9; }
+.map-grid line { stroke: #d3d8d1; stroke-width: 1; stroke-dasharray: 3 5; }
+.north-indicator path { fill: var(--forest); }
+.north-indicator text { fill: var(--forest); font-size: 14px; font-weight: 850; text-anchor: middle; }
+.map-marker { cursor: pointer; outline: none; }
+.map-marker .marker-core { stroke: #fffdf7; stroke-width: 4; filter: drop-shadow(0 2px 3px rgba(23,63,54,.22)); }
+.map-marker:hover .marker-core, .map-marker:focus-visible .marker-core, .map-marker.selected .marker-core { stroke: #173f36; stroke-width: 4; }
+.marker-halo { opacity: .18; }
+.group-marker:hover .marker-halo, .group-marker:focus-visible .marker-halo, .group-marker.selected .marker-halo { opacity: .3; }
+.group-marker text { fill: white; font-size: 14px; font-weight: 850; text-anchor: middle; pointer-events: none; }
+.marker-dot { fill: white; pointer-events: none; }
+.map-scale line { stroke: #334d46; stroke-width: 2; }
+.map-scale text { fill: #334d46; font-size: 12px; font-weight: 750; }
+.map-instruction { margin: 8px 2px 0; color: var(--muted); font-size: .72rem; line-height: 1.4; }
+.proximity-detail { margin-top: 14px; padding: 17px; border: 1px solid #bccdc5; border-radius: 17px; background: #f5faf6; }
+.proximity-detail-group { border-color: #e0c270; background: #fff9e8; }
+.proximity-detail-heading { display: flex; align-items: center; gap: 11px; margin-bottom: 13px; }
+.proximity-detail-heading .eyebrow { margin-bottom: 2px; }
+.proximity-detail-heading h3 { margin: 0; }
+.proximity-swatch { width: 17px; height: 17px; flex: none; border: 3px solid white; border-radius: 50%; box-shadow: 0 0 0 1px rgba(23,63,54,.18); }
+.proximity-swatch-halo { box-shadow: 0 0 0 7px rgba(201,82,43,.12); }
+.proximity-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; margin: 0; }
+.proximity-facts div { min-width: 0; }
+.proximity-facts dt { color: var(--muted); font-size: .69rem; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+.proximity-facts dd { margin: 2px 0 0; overflow-wrap: anywhere; font-size: .86rem; font-weight: 700; }
+.proximity-records { margin-top: 14px; padding-top: 13px; border-top: 1px solid #e4d6ac; }
+.proximity-records h4 { margin: 0 0 8px; font-size: .8rem; }
+.proximity-records ul { display: grid; gap: 7px; padding: 0; margin: 0; list-style: none; }
+.proximity-records li { display: flex; align-items: flex-start; gap: 7px; color: #4f5f5a; font-size: .78rem; }
+.proximity-records li svg { flex: none; margin-top: 1px; }
+.proximity-empty { display: grid; justify-items: center; margin-top: 18px; padding: 34px 20px; border: 1px dashed #b9c4bd; border-radius: 17px; color: var(--muted); text-align: center; background: #f4f5f0; }
+.proximity-empty h3 { margin: 9px 0 5px; color: var(--ink); }
+.proximity-empty p { max-width: 470px; margin: 0; font-size: .82rem; }
+.proximity-filter-empty { margin-top: 10px; padding-block: 24px; }
 .empty { padding: 42px 20px; text-align: center; color: var(--muted); }
 .offline-page { display: grid; min-height: 100dvh; place-content: center; justify-items: start; max-width: 520px; margin: auto; padding: 28px; }
 .offline-page h1 { margin: 22px 0 12px; }
@@ -132,5 +182,8 @@ textarea { min-height: 116px; resize: vertical; line-height: 1.45; }
   .two-col, .guidance-grid { grid-template-columns: 1fr; }
   .history-card { grid-template-columns: 1fr; }
   .history-card select { min-width: 0; }
+  .proximity-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proximity-filters button { min-height: 50px; }
+  .proximity-facts { grid-template-columns: 1fr; gap: 9px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
