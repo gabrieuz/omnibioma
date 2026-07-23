@@ -34,6 +34,13 @@ O servidor envia **somente imagem e relato**. Localização, andamento e histór
 
 O limitador em memória permite 10 análises por IP a cada 10 minutos. É suficiente para demonstração, não para produção distribuída.
 
+## Modelo neste release e evolução no dispositivo
+
+Neste release inicial, a análise multimodal roda em um Gemma hospedado e é acessada pela Gemini API.
+Todavia, a camada de análise foi separada do restante do fluxo para permitir uma evolução futura para versões menores do Gemma executadas diretamente em dispositivos compatíveis. Nesse caminho, o modelo poderá receber **fine-tuning** para as categorias e saídas estruturadas do Omnibioma e usar **RAG** com uma base de referência ambiental curada, que poderá ser sincronizada e consultada localmente. Isso pode reduzir a dependência de conectividade, o envio de dados e o custo por análise, preservando as regras auditáveis no aparelho.
+
+Essa alternativa local faz parte da evolução planejada, não deste release. Sua adoção dependerá de testes de qualidade, latência, consumo de energia e compatibilidade com o hardware de destino.
+
 ## Executar localmente
 
 Requisitos: Node.js 20+ e uma chave habilitada no Google AI Studio. As dependências
