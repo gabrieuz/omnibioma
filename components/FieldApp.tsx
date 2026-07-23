@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore
 import { AlertTriangle, ArrowLeft, ArrowRight, Camera, Check, Clock3, Download, FileText, History, Home, LocateFixed, MapPin, Plus, RefreshCw, ShieldCheck, Sparkles } from "lucide-react";
 import type { AnalyzeResponse, MissingKey, Occurrence, ProgressState } from "@/lib/contracts";
 import { listOccurrences, listQueued, saveOccurrence } from "@/lib/db";
+import { readAnalyzeResponse } from "@/lib/analyze-response";
 import { downloadOccurrences } from "@/lib/export";
 import { processImage, splitDataUrl } from "@/lib/image";
 import { questionsFor } from "@/lib/questions";
@@ -44,13 +45,7 @@ async function postAnalysis(item: Occurrence): Promise<AnalyzeResponse> {
   if (!item.photoDataUrl) throw new Error("Inclua uma foto antes de analisar.");
   const image = splitDataUrl(item.photoDataUrl);
   const response = await fetch("/api/analyze", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ image, report: item.report }) });
-  const payload = await response.json();
-  if (!response.ok) {
-    const error = new Error(payload.error || "A análise falhou.") as Error & { code?: string };
-    error.code = payload.code;
-    throw error;
-  }
-  return payload;
+  return readAnalyzeResponse(response);
 }
 
 export function FieldApp() {
