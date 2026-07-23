@@ -1,39 +1,105 @@
-# Writeup técnico — Omnibioma
+# Omnibioma
 
-## Problema e proposta
+## Registrar, Agir e Prevenir com I.A: Inteligência Ambiental
 
-Uma fotografia ambiental raramente conta a história inteira. Em campo, uma pessoa pode reconhecer fumaça, água alterada ou resíduos, mas ainda não saber quais detalhes importam, como registrar com segurança ou se já existem sinais parecidos próximos. O Omnibioma transforma essa primeira observação em um registro estruturado e cauteloso.
+### Problema e proposta
 
-O fluxo foi reduzido a quatro verbos: registrar, entender, agir e salvar. A tela inicial apresenta os casos centrais e, separadamente, casos de incerteza. Essa separação é intencional: a demonstração não mede apenas acertos óbvios; ela mostra que neblina, sedimento depois de chuva e imagem degradada devem reduzir a confiança.
+O trabalho ambiental em campo costuma começar com informações dispersas: uma fotografia, um relato, uma coordenada e anotações de vistoria. Para agentes ambientais, brigadistas, pesquisadores e organizações, o desafio é não apenas reconhecer que algo está errado, mas registrar o caso de forma consistente, encaminhá-lo e relacioná-lo ao histórico do território.
 
-## Divisão de responsabilidade
+O Omnibioma foi criado para apoiar esse fluxo. Ele transforma fotos e relatos em registros organizados, orientações práticas e sinais de recorrência. Seu público principal são profissionais e equipes que trabalham com meio ambiente, sobretudo em regiões com conectividade limitada.
 
-O Gemma 4 recebe uma foto já otimizada e um relato. Uma única inferência identifica categoria, qualidade da imagem, sinais observados, lacunas e um resumo factual. A saída tenta usar o mesmo JSON Schema no provedor e é sempre validada por Zod no servidor. Como o endpoint atual rejeita `response_format` e function calling para este Gemma, o adaptador inclui o schema no prompt somente após essas rejeições específicas. Códigos de sinais e lacunas são enumerações, não texto inventado; saída fora do contrato falha de forma segura.
+A população também participa desse ciclo. Moradores e comunidades podem enviar observações simplificadas, que depois podem ser revisadas e complementadas por profissionais. Isso permite incorporar ao sistema conhecimentos e ocorrências que muitas vezes não chegam aos canais institucionais.
 
-Decisões operacionais ficam fora do modelo. Cada lacuna se transforma em uma pergunta local com respostas fechadas. Uma função determinística combina categoria, confiança, qualidade, sinais e respostas para produzir quatro graus: mais informações, acompanhar, atenção e atenção rápida. Cuidados e tipos genéricos de serviço vêm de JSON versionado. Isso torna a orientação revisável, testável e explicável.
+Imagine uma técnica de campo que encontre espuma e peixes mortos em um igarapé. Ela fotografa o local e relata que algumas famílias usam aquela água. O Omnibioma identifica os sinais presentes, aponta o que ainda precisa ser verificado, organiza a ocorrência e sugere cuidados. Em seguida, ajuda a encaminhar o caso para a equipe ou instituição adequada. Se registros semelhantes já existirem na região, o sistema destaca a possível recorrência.
 
-Chamas, exposição à fumaça, peixes mortos, uso de água suspeita e material perigoso elevam a atenção. Imagem ruim, baixa confiança, incerteza ou conteúdo fora do escopo pedem mais evidência. Nenhum contato real é fabricado.
+### Registrar: transformar observações em memória ambiental
 
-## Privacidade e resiliência
+Registrar não significa apenas guardar uma foto. Significa transformar uma observação de campo em informação que possa ser revisada, comparada e reutilizada.
 
-Imagens são desenhadas em canvas, respeitando orientação, com lado máximo de 1600 px, compressão progressiva abaixo de 2 MB e nova codificação JPEG. A nova codificação elimina EXIF. Coordenadas opcionais são arredondadas a três casas e permanecem no IndexedDB. A API recebe apenas imagem e relato; logs registram identificador técnico, duração, resultado e tipo de falha, nunca conteúdo.
+O modelo Gemma recebe uma imagem e um relato curto. Em uma única inferência, relaciona as duas fontes e retorna uma possível categoria ambiental, a qualidade da imagem, os sinais encontrados, as informações ausentes, as incertezas e um resumo factual.
 
-A Interactions API usa imagem inline, `store:false`, solicita thinking `minimal`, temperatura baixa e saída curta. O endpoint ao vivo de julho de 2026 contradiz a documentação: rejeita `minimal` e também rejeita `low` como budget incompatível; o adaptador omite a configuração somente após essas respostas específicas. Há timeout de 60 segundos e uma repetição somente para erro transitório ou JSON inválido. Baixa confiança não consome outra inferência. Origem, MIME, schema e tamanho são validados, com limite básico por IP.
+Se faltarem dados importantes, o sistema apresenta perguntas objetivas. No caso do igarapé, pode perguntar se há odor incomum, se a água é consumida, se existe algum despejo próximo ou se o problema continua ativo. As respostas completam a ocorrência sem exigir que o usuário saiba previamente quais detalhes são relevantes.
 
-Serwist pré-armazena shell e cenários. A rota de análise é explicitamente `NetworkOnly`. Assim, histórico, rascunhos, cenários e snapshots continuam disponíveis offline, mas o produto nunca finge fazer uma análise nova sem internet. Registros offline entram em fila e são retomados com o aplicativo aberto ao recuperar conexão.
+Essa padronização cria um ativo que cresce com o uso. Um registro isolado ajuda a documentar uma situação. Muitos registros, quando coletados com qualidade, consentimento e revisão, podem apoiar estatísticas, pesquisas, mapas, avaliação de tendências e futuros modelos de inteligência artificial ajustados à realidade local.
 
-## Recorrência sem “mapa mágico”
+A base precisa incorporar a linguagem, os problemas e as prioridades de quem vive e trabalha no território. Profissionais ambientais têm papel central na revisão e validação dos registros. Comunidades contribuem com conhecimento local e observações que muitas vezes permaneceriam dispersas ou não documentadas.
 
-Uma recorrência existe quando há dois registros anteriores da mesma categoria em raio de 2 km e janela de 14 dias. A distância usa Haversine. A interface informa contagem, menor distância, período e sinais repetidos. O SVG de proximidade não usa tiles nem serviços externos e é rotulado como visão de proximidade, não mapa de navegação. Recorrência descreve o histórico; não prevê desastre nem determina causalidade.
+Assim, o Omnibioma não cria apenas um arquivo de ocorrências. Ele ajuda a construir uma memória ambiental viva, que se torna mais informativa conforme a participação aumenta e os registros são revisados.
 
-## Dados, transparência e eficiência
+### Agir: conectar quem encontrou o problema a quem pode ajudar
 
-Seis cenários canônicos preservam imagem, hash, licença, atribuição, relato fictício e snapshot. Seis metadados alternativos herdados não tinham imagens locais e continham pontos a verificar; foram migrados como candidatos inativos e não aparecem na experiência. Doze ocorrências fictícias, com datas relativas, coordenadas simuladas e andamentos variados, tornam o padrão visível sem sugerir eventos reais.
+Informação organizada só tem valor quando chega a quem pode utilizá-la.
 
-O desenho também aplica Green AI: uma inferência curta por ocorrência, imagem reduzida, saída limitada e toda a lógica posterior executada localmente. Snapshots reais identificados dão previsibilidade à demonstração e evitam repetir chamadas. O app esclarece que serviço hospedado não equivale a modelo local e que a API não informa a memória ou os dados exatos de treinamento do modelo.
+Depois da análise, o Omnibioma apresenta um grau de atenção em linguagem simples: mais informações necessárias, acompanhar, atenção ou atenção rápida. Essa decisão não fica livremente a cargo do modelo. Uma função determinística combina categoria, confiança, qualidade da imagem, sinais observados e respostas fornecidas.
 
-## Limitações e próximos passos
+Chamas ativas, exposição à fumaça, peixes mortos, uso de água suspeita ou presença de material perigoso podem elevar o grau de atenção. Imagem ruim, baixa confiança ou conteúdo fora do escopo levam o sistema a pedir mais informações, em vez de produzir uma conclusão forçada.
 
-O rate limit em memória não coordena múltiplas instâncias; produção exige armazenamento compartilhado e proteção contra abuso. IndexedDB não é backup e pode ser apagado pelo sistema. A categoria preliminar não substitui amostragem, investigação técnica ou canal de emergência. A geolocalização arredondada ainda é sensível e deve permanecer opt-in.
+O aplicativo também mostra cuidados imediatos e tipos de instituição que podem ajudar. Dependendo do caso, isso pode incluir órgão ambiental, Defesa Civil, vigilância sanitária, serviço de saneamento, prefeitura, laboratório, ONG parceira ou equipe interna da própria organização.
 
-Uma evolução responsável incluiria revisão das regras por especialistas locais, internacionalização de linguagem comunitária, sincronização consentida, trilha de auditoria, avaliação contínua por subgrupos e integração somente com serviços verificados. Nada disso deve preceder testes de campo e governança de dados.
+No exemplo do igarapé, a técnica recebe uma ficha com os sinais observados, o que falta confirmar, cuidados imediatos e possíveis responsáveis pelo atendimento. Ela pode compartilhar o caso com outra equipe sem precisar reconstruí-lo por mensagens ou explicar novamente tudo o que foi observado.
+
+Para a população, o fluxo pode ser mais simples: registrar, receber cuidados básicos e encaminhar a ocorrência para revisão. Para profissionais, o sistema oferece mais contexto, histórico, priorização e acompanhamento.
+
+Essa divisão permite que a comunidade participe sem assumir responsabilidades técnicas que não lhe pertencem. Ao mesmo tempo, ajuda profissionais e organizações a receber registros mais completos e úteis.
+
+O Omnibioma funciona, portanto, como uma ponte entre quem observa o problema e quem possui capacidade técnica, operacional ou institucional para responder.
+
+O sistema não substitui fiscalização, diagnóstico, amostragem ou atendimento de emergência. Seu papel é reduzir a distância entre a observação e a ação.
+
+### Prevenir: transformar histórico em sinais úteis
+
+A prevenção nasce dos registros acumulados e das ações tomadas.
+
+O protótipo destaca uma possível recorrência quando encontra pelo menos dois registros anteriores da mesma categoria em um raio de 2 km e dentro de 14 dias. A distância é calculada localmente com Haversine. A interface informa a quantidade de casos, a proximidade, o período e os sinais repetidos.
+
+Se três registros de água escura, espuma e peixes mortos surgirem no mesmo igarapé em duas semanas, o Omnibioma não afirma que existe uma causa comum nem prevê um desastre. Ele mostra que há um padrão que merece atenção e pode justificar vistoria, coleta de amostras ou orientação preventiva aos moradores.
+
+Em versões futuras, esse histórico poderá ser combinado com dados públicos sobre chuvas, focos de calor, níveis dos rios, cobertura vegetal e características da região. Essa combinação poderá apoiar avisos preventivos, planejamento de vistorias, campanhas educativas e definição de áreas prioritárias.
+
+Um exemplo seria alertar equipes, antes do período mais seco, sobre áreas que já concentraram registros de fumaça ou fogo. Outro seria oferecer conteúdos educativos a comunidades próximas de locais com descarte recorrente de resíduos.
+
+A plataforma também poderá aprender com os desfechos registrados. Saber quais casos foram confirmados, quais orientações foram úteis e quais instituições atenderam cada ocorrência ajuda a melhorar as regras, as perguntas e os encaminhamentos futuros.
+
+O objetivo não é prometer previsão infalível. É perceber sinais mais cedo, compartilhar conhecimento e apoiar decisões antes que o problema se agrave.
+
+### Como o Gemma participa
+
+O Gemma é usado onde interpretação multimodal é necessária. Ele relaciona fotografia e relato, identifica sinais, avalia a qualidade das informações, reconhece incertezas, aponta lacunas e produz uma saída estruturada.
+
+A resposta segue um contrato validado por Zod no servidor. Categorias, sinais e lacunas usam enumerações controladas. Respostas fora do contrato falham de forma segura.
+
+Como o endpoint não oferece de forma consistente todos os recursos de saída estruturada, um adaptador inclui o schema no prompt quando necessário e valida o resultado antes da exibição.
+
+Decisões sensíveis ficam fora do modelo. Graus de atenção, cuidados e tipos de serviço vêm de regras e arquivos JSON versionados.
+
+O Gemma interpreta a situação. A aplicação controla as orientações e os critérios operacionais.
+
+### Privacidade, resiliência e eficiência
+
+Antes do envio, as imagens são redimensionadas, comprimidas para menos de 2 MB e recodificadas em JPEG, removendo metadados EXIF. A localização é opcional e arredondada. Os logs não armazenam imagens, relatos ou coordenadas.
+
+O protótipo usa um serviço hospedado para a inferência. Portanto, uma nova análise exige conexão. O aplicativo não finge executar o modelo offline.
+
+Ainda assim, a experiência é offline-first para abrir a interface, consultar cenários, manter rascunhos, visualizar registros e preparar novas ocorrências. Quando a conexão retorna, os casos pendentes podem ser retomados.
+
+O desenho busca eficiência: uma inferência curta por ocorrência, imagem reduzida, resposta limitada, apenas uma nova tentativa em falhas transitórias e lógica posterior executada localmente. Os cenários de demonstração reutilizam resultados previamente processados.
+
+### Dados de demonstração e limitações
+
+O projeto inclui seis cenários: queimada, possível contaminação da água, descarte de resíduos, neblina semelhante a fumaça, água barrenta após chuva e imagem insuficiente.
+
+Os últimos três mostram que o sistema também sabe reduzir a confiança, reconhecer incertezas e pedir mais informações.
+
+Doze ocorrências fictícias alimentam a demonstração de recorrência. Imagens, licenças, atribuições, hashes e relatos simulados são identificados de forma explícita.
+
+O Omnibioma ainda é um protótipo. Sua evolução exige validação com profissionais locais, testes com comunidades, governança de dados, revisão das regras por especialistas e integração apenas com serviços verificados.
+
+## Síntese
+
+O Omnibioma apoia profissionais ambientais e inclui a população no ciclo de cuidado com o território.
+
+**Registrar** transforma observações em memória ambiental.  
+**Agir** conecta o caso a quem pode ajudar.  
+**Prevenir** usa o histórico para revelar padrões, orientar e educar.
+
+> O Omnibioma transforma fotos e relatos dispersos em informação organizada, ação coordenada e conhecimento para prevenção ambiental.
