@@ -1,0 +1,22 @@
+{
+  "fire_smoke": {
+    "care": ["Afaste-se de chamas e fumaça; não tente combater o fogo.", "Evite respirar fumaça e ajude pessoas vulneráveis a sair da exposição.", "Registre apenas de um ponto seguro."],
+    "services": ["Serviço local de emergência", "Defesa civil ou brigada local", "Órgão ambiental responsável"]
+  },
+  "water_contamination": {
+    "care": ["Não beba nem use a água até haver orientação confiável.", "Evite contato direto e mantenha crianças e animais afastados.", "Não toque em animais mortos ou substâncias desconhecidas."],
+    "services": ["Serviço municipal de água ou saneamento", "Vigilância ambiental ou sanitária", "Órgão ambiental responsável"]
+  },
+  "waste_disposal": {
+    "care": ["Não manipule recipientes, líquidos ou materiais desconhecidos.", "Mantenha distância de fumaça, fogo e objetos cortantes.", "Registre o local sem confrontar outras pessoas."],
+    "services": ["Limpeza urbana ou gestão de resíduos", "Vigilância ambiental", "Órgão ambiental responsável"]
+  },
+  "uncertain": {
+    "care": ["Observe de uma distância segura e procure novas evidências.", "Se houver risco imediato para pessoas, procure o serviço local de emergência."],
+    "services": ["Liderança comunitária ou equipe de campo", "Órgão ambiental responsável"]
+  },
+  "out_of_scope": {
+    "care": ["Este registro não pôde ser enquadrado nas categorias do protótipo.", "Se houver risco imediato, procure o serviço local de emergência."],
+    "services": ["Equipe de campo responsável pelo programa"]
+  }
+}

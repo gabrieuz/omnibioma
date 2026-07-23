@@ -1,0 +1,54 @@
+{
+  "analysis": {
+    "category": "water_contamination",
+    "confidence": "high",
+    "imageQuality": "good",
+    "observedSigns": [
+      {
+        "code": "dead_fish",
+        "source": "both"
+      },
+      {
+        "code": "unusual_water_color",
+        "source": "both"
+      }
+    ],
+    "missingInformation": [
+      "unusual_odor",
+      "affected_animals",
+      "recent_rain"
+    ],
+    "summary": "A imagem e o relato indicam a presença de peixes mortos flutuando em água com coloração escura. A causa da mortalidade e da alteração na cor não é visível.",
+    "uncertainties": [
+      "Causa da mortalidade dos peixes",
+      "Causa da alteração na coloração da água"
+    ]
+  },
+  "meta": {
+    "provider": "google-gemini-api",
+    "model": "gemma-4-26b-a4b-it",
+    "mode": "hosted",
+    "durationMs": 39520,
+    "generatedAt": "2026-07-22T23:36:40.658Z",
+    "snapshot": true,
+    "provenance": "live_gemini_interactions_api_store_false",
+    "tokenUsage": {
+      "total_tokens": 2209,
+      "total_input_tokens": 776,
+      "input_tokens_by_modality": [
+        {
+          "modality": "text",
+          "tokens": 518
+        },
+        {
+          "modality": "image",
+          "tokens": 258
+        }
+      ],
+      "total_cached_tokens": 0,
+      "total_output_tokens": 126,
+      "total_tool_use_tokens": 0,
+      "total_thought_tokens": 1307
+    }
+  }
+}

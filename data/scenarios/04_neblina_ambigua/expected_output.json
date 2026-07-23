@@ -1,0 +1,45 @@
+{
+  "analysis": {
+    "category": "uncertain",
+    "confidence": "low",
+    "imageQuality": "good",
+    "observedSigns": [
+      {
+        "code": "poor_visibility",
+        "source": "both"
+      }
+    ],
+    "missingInformation": [],
+    "summary": "A área apresenta neblina branca e baixa visibilidade. O relato indica ausência de chamas e de odor de queimado.",
+    "uncertainties": [
+      "Dificuldade em distinguir neblina natural de fumaça apenas pela imagem e relato."
+    ]
+  },
+  "meta": {
+    "provider": "google-gemini-api",
+    "model": "gemma-4-26b-a4b-it",
+    "mode": "hosted",
+    "durationMs": 29047,
+    "generatedAt": "2026-07-22T23:37:38.354Z",
+    "snapshot": true,
+    "provenance": "live_gemini_interactions_api_store_false",
+    "tokenUsage": {
+      "total_tokens": 1992,
+      "total_input_tokens": 783,
+      "input_tokens_by_modality": [
+        {
+          "modality": "text",
+          "tokens": 525
+        },
+        {
+          "modality": "image",
+          "tokens": 258
+        }
+      ],
+      "total_cached_tokens": 0,
+      "total_output_tokens": 85,
+      "total_tool_use_tokens": 0,
+      "total_thought_tokens": 1124
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "file": "image.jpg",
+  "source_title": "Fog and Forest",
+  "author": "Andrew Neel",
+  "license": "CC0 1.0 — dedicação ao domínio público",
+  "source_page": "https://commons.wikimedia.org/wiki/File:Fog_and_Forest_(Unsplash).jpg",
+  "original_file_url": "https://upload.wikimedia.org/wikipedia/commons/7/71/Fog_and_Forest_%28Unsplash%29.jpg",
+  "modifications": "Redimensionamento e compressão JPEG para uso no protótipo; sem alteração semântica.",
+  "sha256": "c8749fbc55b82cbee4bd1e07120cf6a9bd54102580ec50353147bfab782ded5f",
+  "notes": "Cenário destinado a avaliar incerteza. A imagem mostra neblina; o sistema não deve afirmar que há incêndio."
+}

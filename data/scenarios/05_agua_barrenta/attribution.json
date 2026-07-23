@@ -1,0 +1,11 @@
+{
+  "file": "image.jpg",
+  "source_title": "Muddy USGS",
+  "author": "U.S. Geological Survey, Office of Water Quality",
+  "license": "Domínio público — material do U.S. Geological Survey",
+  "source_page": "https://commons.wikimedia.org/wiki/File:Muddy_USGS.jpg",
+  "original_file_url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Muddy_USGS.jpg",
+  "modifications": "Redimensionamento e compressão JPEG para uso no protótipo; sem alteração semântica.",
+  "sha256": "79a7c6a63177cba155c295fd726d0602b376147e8dbedc43b8578103295265a0",
+  "notes": "Cenário destinado a evitar falso positivo: água turva por sedimento não deve ser classificada automaticamente como contaminação química."
+}

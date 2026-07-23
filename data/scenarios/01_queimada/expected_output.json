@@ -1,0 +1,51 @@
+{
+  "analysis": {
+    "category": "fire_smoke",
+    "confidence": "high",
+    "imageQuality": "good",
+    "observedSigns": [
+      {
+        "code": "smoke_visible",
+        "source": "both"
+      },
+      {
+        "code": "flame_visible",
+        "source": "both"
+      }
+    ],
+    "missingInformation": [
+      "people_nearby"
+    ],
+    "summary": "A imagem aérea mostra uma linha de chamas e uma densa coluna de fumaça sobre uma área de vegetação. O relato confirma o avanço do fogo sobre a vegetação.",
+    "uncertainties": [
+      "Presença de habitações ou pessoas nas proximidades"
+    ]
+  },
+  "meta": {
+    "provider": "google-gemini-api",
+    "model": "gemma-4-26b-a4b-it",
+    "mode": "hosted",
+    "durationMs": 30015,
+    "generatedAt": "2026-07-22T23:34:49.673Z",
+    "snapshot": true,
+    "provenance": "live_gemini_interactions_api_store_false",
+    "tokenUsage": {
+      "total_tokens": 1820,
+      "total_input_tokens": 781,
+      "input_tokens_by_modality": [
+        {
+          "modality": "text",
+          "tokens": 523
+        },
+        {
+          "modality": "image",
+          "tokens": 258
+        }
+      ],
+      "total_cached_tokens": 0,
+      "total_output_tokens": 104,
+      "total_tool_use_tokens": 0,
+      "total_thought_tokens": 935
+    }
+  }
+}
