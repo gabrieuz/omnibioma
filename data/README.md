@@ -1,6 +1,6 @@
 # Dados de demonstração
 
-`data/scenarios` é o conjunto canônico do Omnibioma Field. Os seis cenários combinam imagens abertas com relatos, localizações e históricos fictícios. Eles não representam ocorrências reais no Acre.
+`data/scenarios` é o conjunto canônico do Omnibioma. Os seis cenários combinam imagens abertas com relatos, localizações e históricos fictícios. Eles não representam ocorrências reais no Acre.
 
 Cada pasta contém:
 

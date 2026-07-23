@@ -3,9 +3,9 @@ import { DevServiceWorkerCleanup } from "@/components/DevServiceWorkerCleanup";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Omnibioma Field",
+  title: "Omnibioma",
   description: "Triagem ambiental preliminar, segura e feita para o campo.",
-  applicationName: "Omnibioma Field",
+  applicationName: "Omnibioma",
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Omnibioma" },
   icons: { icon: "/icons/icon.svg", apple: "/icons/icon.svg" }

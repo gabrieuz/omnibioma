@@ -28,7 +28,7 @@ test("fluxo completo, recorrência, status e exportação", async ({ page }) => 
   await expect(page.getByRole("heading", { name: "Visão de proximidade" })).toBeVisible();
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: /Exportar JSON/ }).click();
-  expect((await download).suggestedFilename()).toContain("omnibioma-field");
+  expect((await download).suggestedFilename()).toMatch(/^omnibioma-\d{4}-\d{2}-\d{2}\.json$/);
 });
 
 test("fila offline preserva o registro", async ({ page, context }) => {

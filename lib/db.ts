@@ -5,7 +5,7 @@ interface FieldDB extends DBSchema {
   occurrences: { key: string; value: Occurrence; indexes: { "by-created": string; "by-state": string } };
 }
 
-const dbPromise = typeof indexedDB === "undefined" ? null : openDB<FieldDB>("omnibioma-field", 1, {
+const dbPromise = typeof indexedDB === "undefined" ? null : openDB<FieldDB>("omnibioma", 1, {
   upgrade(db) {
     const store = db.createObjectStore("occurrences", { keyPath: "id" });
     store.createIndex("by-created", "createdAt");

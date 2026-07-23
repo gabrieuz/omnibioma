@@ -1,8 +1,8 @@
-# Writeup técnico — Omnibioma Field
+# Writeup técnico — Omnibioma
 
 ## Problema e proposta
 
-Uma fotografia ambiental raramente conta a história inteira. Em campo, uma pessoa pode reconhecer fumaça, água alterada ou resíduos, mas ainda não saber quais detalhes importam, como registrar com segurança ou se já existem sinais parecidos próximos. O Omnibioma Field transforma essa primeira observação em um registro estruturado e cauteloso.
+Uma fotografia ambiental raramente conta a história inteira. Em campo, uma pessoa pode reconhecer fumaça, água alterada ou resíduos, mas ainda não saber quais detalhes importam, como registrar com segurança ou se já existem sinais parecidos próximos. O Omnibioma transforma essa primeira observação em um registro estruturado e cauteloso.
 
 O fluxo foi reduzido a quatro verbos: registrar, entender, agir e salvar. A tela inicial apresenta os casos centrais e, separadamente, casos de incerteza. Essa separação é intencional: a demonstração não mede apenas acertos óbvios; ela mostra que neblina, sedimento depois de chuva e imagem degradada devem reduzir a confiança.
 

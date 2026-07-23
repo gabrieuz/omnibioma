@@ -197,7 +197,7 @@ export function FieldApp() {
 
   return <div className="app-shell">
     <header className="topbar">
-      <button className="brand" onClick={() => goTab("home")} aria-label="Ir para o início"><span className="brand-mark" aria-hidden="true">O</span><span>Omnibioma Field</span></button>
+      <button className="brand" onClick={() => goTab("home")} aria-label="Ir para o início"><span className="brand-mark" aria-hidden="true">O</span><span>Omnibioma</span></button>
       <span className={`connection ${online ? "" : "offline"}`} role="status"><span className="connection-dot" />{online ? "Online" : "Modo offline"}</span>
     </header>
 

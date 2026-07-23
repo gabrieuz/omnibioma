@@ -1,8 +1,8 @@
-# Omnibioma Field
+# Omnibioma
 
 PWA mobile-first para registrar evidências ambientais, entender lacunas com o Gemma e receber orientação baseada em regras auditáveis. O produto foi desenhado para ser compreendido em poucos segundos no campo: **fotografar → entender → agir → salvar**.
 
-> Classificação preliminar. O Omnibioma Field não substitui avaliação técnica nem serviço de emergência.
+> Classificação preliminar. O Omnibioma não substitui avaliação técnica nem serviço de emergência.
 
 ## O que funciona
 

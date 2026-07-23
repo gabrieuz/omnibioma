@@ -11,7 +11,7 @@ export function downloadOccurrences(items: Occurrence[]) {
   const url = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = `omnibioma-field-${new Date().toISOString().slice(0, 10)}.json`;
+  anchor.download = `omnibioma-${new Date().toISOString().slice(0, 10)}.json`;
   anchor.click();
   URL.revokeObjectURL(url);
 }

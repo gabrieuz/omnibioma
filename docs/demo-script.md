@@ -2,7 +2,7 @@
 
 **0:00–0:20 — proposta**
 
-Abra a home: “O Omnibioma Field ajuda uma pessoa em campo a transformar uma foto em registro e orientação preliminar. Ele não diagnostica e não substitui emergência.” Mostre os três casos e os três testes de confiança.
+Abra a home: “O Omnibioma ajuda uma pessoa em campo a transformar uma foto em registro e orientação preliminar. Ele não diagnostica e não substitui emergência.” Mostre os três casos e os três testes de confiança.
 
 **0:20–1:10 — ocorrência principal**
 
