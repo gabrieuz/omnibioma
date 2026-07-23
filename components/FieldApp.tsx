@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- local/data URLs are intentionally decoded by canvas and cached by the PWA */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { AlertTriangle, ArrowLeft, ArrowRight, Camera, Check, Clock3, Download, FileText, History, Home, LocateFixed, MapPin, Plus, RefreshCw, ShieldCheck, Sparkles } from "lucide-react";
 import type { AnalyzeResponse, MissingKey, Occurrence, ProgressState } from "@/lib/contracts";
 import { listOccurrences, listQueued, saveOccurrence } from "@/lib/db";
@@ -19,6 +19,15 @@ type Flow = "register" | "analyzing" | "understand" | "act";
 const progressLabels: Record<ProgressState, string> = {
   registered: "Registrado", reviewed: "Revisado", forwarded: "Encaminhado", in_progress: "Em andamento", resolved: "Resolvido"
 };
+
+function subscribeToConnection(onStoreChange: () => void) {
+  window.addEventListener("online", onStoreChange);
+  window.addEventListener("offline", onStoreChange);
+  return () => {
+    window.removeEventListener("online", onStoreChange);
+    window.removeEventListener("offline", onStoreChange);
+  };
+}
 
 function localDateTime(date = new Date()) {
   const offset = date.getTimezoneOffset() * 60_000;
@@ -48,7 +57,7 @@ export function FieldApp() {
   const [flow, setFlow] = useState<Flow>("register");
   const [current, setCurrent] = useState<Occurrence>(() => blankOccurrence());
   const [history, setHistory] = useState<Occurrence[]>([]);
-  const [online, setOnline] = useState(() => typeof navigator === "undefined" ? true : navigator.onLine);
+  const online = useSyncExternalStore(subscribeToConnection, () => navigator.onLine, () => true);
   const [scenarioId, setScenarioId] = useState<string>();
   const [message, setMessage] = useState<{ kind: "info" | "error"; text: string }>();
   const [busyPhoto, setBusyPhoto] = useState(false);
@@ -81,11 +90,9 @@ export function FieldApp() {
       setHistory(items);
     };
     void initialize();
-    const onOnline = () => { setOnline(true); void resumeQueued(); };
-    const onOffline = () => setOnline(false);
+    const onOnline = () => { void resumeQueued(); };
     window.addEventListener("online", onOnline);
-    window.addEventListener("offline", onOffline);
-    return () => { window.removeEventListener("online", onOnline); window.removeEventListener("offline", onOffline); };
+    return () => { window.removeEventListener("online", onOnline); };
   }, [resumeQueued]);
 
   const goTab = (next: Tab) => {
@@ -218,7 +225,7 @@ function HomeView({ onRegister, onScenario }: { onRegister: () => void; onScenar
   const trust = scenarios.filter((item) => item.confidenceTest);
   return <>
     <section className="hero"><p className="eyebrow">Campo · evidência · cuidado</p><h1>Entenda o sinal. Aja com cuidado.</h1><p>Registre uma evidência ambiental, esclareça o que falta e receba uma orientação preliminar com regras transparentes.</p><button className="button button-dark" onClick={onRegister}><Camera size={19} />Registrar ocorrência</button></section>
-    <section className="section" aria-labelledby="cases-title"><div className="section-head"><div><p className="eyebrow">Demonstração</p><h2 id="cases-title">Casos em campo</h2></div><p>Toque para experimentar</p></div><div className="scenario-grid">{main.map((scenario) => <button className="scenario-card" key={scenario.id} onClick={() => onScenario(scenario)}><img src={scenario.image} alt="" /><span className="scenario-copy"><span>{scenario.kicker}</span><strong>{scenario.title}</strong></span></button>)}</div></section>
+    <section className="section" aria-labelledby="cases-title"><div className="section-head"><div><p className="eyebrow">Demonstração</p><h2 id="cases-title">Casos em campo</h2></div><p>Toque para experimentar</p></div><div className="scenario-grid">{main.map((scenario) => <button className="scenario-card" key={scenario.id} onClick={() => onScenario(scenario)}><img src={scenario.image} alt="" loading="lazy" decoding="async" /><span className="scenario-copy"><span>{scenario.kicker}</span><strong>{scenario.title}</strong></span></button>)}</div></section>
     <section className="section confidence-panel" aria-labelledby="trust-title"><p className="eyebrow">Segurança primeiro</p><h2 id="trust-title">Testes de confiança</h2><p className="helper">Bons sistemas também sabem dizer “não sei”. Estes casos verificam limites e falsos positivos.</p><div className="trust-row">{trust.map((scenario) => <button className="trust-card" key={scenario.id} onClick={() => onScenario(scenario)}><span>{scenario.kicker}</span><strong>{scenario.title}</strong></button>)}</div></section>
   </>;
 }

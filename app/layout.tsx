@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { DevServiceWorkerCleanup } from "@/components/DevServiceWorkerCleanup";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,5 +14,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 1, themeColor: "#173f36" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-BR"><body>{children}</body></html>;
+  return <html lang="pt-BR"><body>{process.env.NODE_ENV === "development" ? <DevServiceWorkerCleanup /> : null}{children}</body></html>;
 }
